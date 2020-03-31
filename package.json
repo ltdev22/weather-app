@@ -4,5 +4,8 @@
     "main": "app.js",
     "repository": "git@github.com:ltdev22/weather-app.git",
     "author": "Lykourgos Tsirikos <lykourgos.tsirikos@gmail.com>",
-    "license": "MIT"
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^0.19.2"
+    }
 }
