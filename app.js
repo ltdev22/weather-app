@@ -1,23 +1,21 @@
-// const axios = require('axios');
 const geoCode = require('./utils/geocode');
+const forecast = require('./utils/forecast');
 
-// Getting the weather forecast for a location
-// const url =
-//     'https://api.darksky.net/forecast/84a417bde77434d2a04386db5e16bd96/37.8267,-112?units=si';
-
-// axios
-//     .get(url)
-//     .then(response => {
-//         const current = response.data.currently;
-//         console.log(
-//             `It is currently ${current.temperature} degrees out. There's a ${current.precipProbability}% chance to rain.`
-//         );
-//     })
-//     .catch(error => console.log(error));
-
-const geoLocation = geoCode('Bristol')
+// Getting today's weather forecast for a given location
+geoCode('Bristol')
     .then(response => {
-        console.log(response);
+        let { latitude, longitude, location } = response;
+        forecast(latitude, longitude)
+            .then(response => {
+                console.log(location);
+                console.log(response);
+            })
+            .catch(error => console.log(error));
     })
     .catch(error => console.log(error));
-console.log(geoLocation);
+console.log("Today's weather forecast:");
+// This prints the following on the terminal
+//
+// Today's weather forecast:
+// Bristol, City Of Bristol, England, United Kingdom
+// It is currently 7.85 degrees out. There's a 0% chance to rain.
