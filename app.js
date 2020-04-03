@@ -2,7 +2,12 @@ const geoCode = require('./utils/geocode');
 const forecast = require('./utils/forecast');
 
 // Getting today's weather forecast for a given location
-geoCode('Bristol')
+const givenLocation = process.argv[2];
+if (!givenLocation) {
+    return console.log('Please type a location.');
+}
+
+geoCode(givenLocation)
     .then(response => {
         let { latitude, longitude, location } = response;
         forecast(latitude, longitude)
