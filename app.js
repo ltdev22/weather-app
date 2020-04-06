@@ -48,4 +48,18 @@ app.get('/weather', (req, res) => {
     });
 });
 
+// 404 pages
+app.get('/help/*', (req, res) => {
+    res.render('fourOhfour', {
+        heading: '404',
+        errorMsg: 'Help article not found :('
+    });
+});
+
+app.get('*', (req, res) => {
+    res.render('fourOhfour', {
+        heading: '404',
+        errorMsg: 'Page not found :('
+    });
+});
 app.listen(8080, () => console.log(`Server is running on port 8080`));
