@@ -62,4 +62,6 @@ app.get('*', (req, res) => {
         errorMsg: 'Page not found :('
     });
 });
+
+// Set up the server
 app.listen(8080, () => console.log(`Server is running on port 8080`));
