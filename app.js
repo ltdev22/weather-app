@@ -1,29 +1,44 @@
 const path = require('path');
 const express = require('express');
+const hbs = require('express-handlebars');
 const app = express();
 
-// Define paths for Express config
-const publicDirPath = path.join(__dirname, '/public');
-
-// Configure Express to point to the public dir
-app.use(express.static(publicDirPath));
+// Configure Express to use handlebars template engine
+app.set('view engine', '.hbs');
+app.engine(
+    '.hbs',
+    hbs({
+        extname: '.hbs',
+        layoutsDir: path.join(__dirname, 'views/layouts'), // specify the path for the base layout
+        partialsDir: path.join(__dirname, 'views/partials') // specify the path for the partials
+    })
+);
+app.set('views', path.join(__dirname, 'views/pages')); // specify the path for each page which extends default layout
+app.use(express.static(path.join(__dirname, 'public'))); // point to the public dir
 
 // Setting routes
 
 // Home page
-// app.get('', (req, res) => {
-//     res.send('Hello Express.js!');
-// });
+app.get('', (req, res) => {
+    res.render('index', {
+        heading: 'Weather App',
+        name: 'Lykourgos'
+    });
+});
 
 // Help page
-// app.get('/help', (req, res) => {
-//     res.send('This is the Help page');
-// });
+app.get('/help', (req, res) => {
+    res.render('help', {
+        heading: 'This is the Help page'
+    });
+});
 
 // About page
-// app.get('/about', (req, res) => {
-//     res.send('<h1>This is the about page</h1>');
-// });
+app.get('/about', (req, res) => {
+    res.render('about', {
+        heading: 'This is the About page'
+    });
+});
 
 // Weather page
 app.get('/weather', (req, res) => {
