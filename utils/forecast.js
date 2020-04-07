@@ -6,8 +6,8 @@ const forecast = async (latitude, longitude) => {
 
     try {
         let res = await axios.get(url);
-        let { temperature, precipProbability } = res.data.currently;
-        return `It is currently ${temperature} degrees out. There's a ${precipProbability}% chance to rain.`;
+        let { currently, hourly } = res.data;
+        return `${hourly.summary} It is currently ${currently.temperature} degrees out. There's a ${currently.precipProbability}% chance to rain.`;
     } catch (error) {
         return 'Ooops! Something went wrong :( - Error: ' + error;
     }

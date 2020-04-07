@@ -1,6 +1,8 @@
 const path = require('path');
 const express = require('express');
 const hbs = require('express-handlebars');
+const geocode = require('./utils/geocode');
+const forecast = require('./utils/forecast');
 const app = express();
 
 // Configure Express to use handlebars template engine
@@ -42,10 +44,31 @@ app.get('/about', (req, res) => {
 
 // Weather page
 app.get('/weather', (req, res) => {
-    res.send({
-        location: 'Bristol, U.K.',
-        forecast: 'The weather is fine'
-    });
+    if (!req.query.address) {
+        return res.send({ error: 'Please provide a location.' });
+    }
+
+    const { address } = req.query;
+
+    geocode(address)
+        .then(response => {
+            let { latitude, longitude, location } = response;
+
+            forecast(latitude, longitude)
+                .then(response => {
+                    return res.send({
+                        address,
+                        location,
+                        forecast: response
+                    });
+                })
+                .catch(error => {
+                    return res.send({ error });
+                });
+        })
+        .catch(error => {
+            return res.send({ error });
+        });
 });
 
 // 404 pages
