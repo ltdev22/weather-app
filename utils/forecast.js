@@ -9,7 +9,7 @@ const forecast = async (latitude, longitude) => {
         let { currently, hourly } = res.data;
         return `${hourly.summary} It is currently ${currently.temperature} degrees out. There's a ${currently.precipProbability}% chance to rain.`;
     } catch (error) {
-        return 'Ooops! Something went wrong :( - Error: ' + error;
+        return { error: 'Oops! Something went wrong :(' };
     }
 };
 

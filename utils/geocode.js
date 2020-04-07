@@ -14,7 +14,10 @@ const geoCode = async address => {
             latitude: res.data.features[0].center[1]
         };
     } catch (error) {
-        return 'Ooops! Something went wrong :( - Error: ' + error;
+        return {
+            error:
+                'Oops! Something went wrong with the location you provided :('
+        };
     }
 };
 
