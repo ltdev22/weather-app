@@ -7,8 +7,8 @@ services:
             context: .
             dockerfile: Dockerfile
         command: nodemon --inspect app.js
-        # env_file:
-        #   - "./.env"
+        env_file:
+            - './.env'
         ports:
             - '8888:8080'
         volumes:

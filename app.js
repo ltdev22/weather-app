@@ -1,4 +1,5 @@
 const path = require('path');
+const dotenv = require('dotenv').config();
 const express = require('express');
 const hbs = require('express-handlebars');
 const geocode = require('./utils/geocode');
@@ -24,7 +25,8 @@ app.use(express.static(path.join(__dirname, 'public'))); // point to the public 
 app.get('', (req, res) => {
     res.render('index', {
         heading: 'Weather App',
-        name: 'Lykourgos'
+        name: 'Lykourgos',
+        baseUrl: process.env.BASE_URL
     });
 });
 
@@ -87,4 +89,5 @@ app.get('*', (req, res) => {
 });
 
 // Set up the server
-app.listen(8080, () => console.log(`Server is running on port 8080`));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server is running on port ${port}`));

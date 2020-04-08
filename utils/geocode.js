@@ -4,7 +4,7 @@ const axios = require('axios');
 const geoCode = async address => {
     let geocodeUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
         address
-    )}.json?access_token=pk.eyJ1IjoibHlrb3MyMiIsImEiOiJjazhnOGNwdXEwOW9nM25scWszN3o2dTRlIn0.g1dRey9Uo8qAYTvukBG-fw&limit=1`;
+    )}.json?access_token=${process.env.GEO_KEY}&limit=1`;
 
     try {
         let res = await axios.get(geocodeUrl);
